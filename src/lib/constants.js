@@ -1,0 +1,42 @@
+export const USER_DATA_INITIAL = {
+  name: '',
+  birth: '',
+  weight: '',
+  height: '',
+  dataAccepted: false,
+}
+
+export const CATEGORIES = {
+  chest: 85,
+  'arms-and-shoulders': 86,
+  abs: 87,
+  'glutes-and-legs': 88,
+  carlos: 102,
+  leo: 103,
+  elena: 104,
+  carolina: 105,
+  trainers: 99,
+  workouts: 82,
+  'stretches-and-warm-ups': 96,
+  'lower-body': 84,
+  'upper-body': 83,
+  sports: 100,
+  nutrition: 95,
+  shorts: 97,
+  'healthy-lifestyle': 101,
+  zumba: 109,
+  'sin-categoria': 1,
+}
+
+export const TAGS = {
+  advanced: 111,
+  intermediate: 110,
+  'trainer-male': 112,
+  'trainer-female': 113,
+  'gain-muscle': 94,
+  'improve-fitness': 89,
+  'improve-endurance': 92,
+  'lose-weight': 93,
+  'reduce-stress': 91,
+  video: 72,
+}

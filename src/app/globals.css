@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  --sb-track-color: #0003;
+  --sb-thumb-color: #abcb17;
+  --sb-size: 4px;
+  --sm-size: 2px;
+}
+
+body::-webkit-scrollbar,
+.scrollbar-thin::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track,
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+body::-webkit-scrollbar-thumb,
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+  .scrollbar-thin {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+@media (max-width: 500px) {
+  .scrollbar-thin {
+    /* Reglas de CSS para scrollbar-thin */
+    scrollbar-width: thin;
+    scrollbar-color: #abcb17 transparent;
+    
+  }
+
+  /* Para navegadores WebKit */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    margin: 0;
+    border-radius: 20px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 20px;
+    border: 3px solid transparent;
+  }
+}
+
+@font-face {
+  font-family: 'OswaldLight';
+  src: url('../../public/assets/fonts/Oswald-Light.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OswaldReg';
+  src: url('../../public/assets/fonts/Oswald-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OswaldMed';
+  src: url('../../public/assets/fonts/Oswald-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OswaldSemBold';
+  src: url('../../public/assets/fonts/Oswald-SemiBold.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OswaldBold';
+  src: url('../../public/assets/fonts/Oswald-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OswaldBoldIt';
+  src: url('../../public/assets/fonts/Oswald-BoldItalic.ttf') format('truetype');
+  font-display: swap;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.placeholder-hide::-webkit-datetime-edit-text,
+.placeholder-hide::-webkit-datetime-edit-month-field,
+.placeholder-hide::-webkit-datetime-edit-day-field,
+.placeholder-hide::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+.placeholder-hide::-webkit-datetime-edit-text,
+.placeholder-hide::-webkit-datetime-edit-month-field,
+.placeholder-hide::-webkit-datetime-edit-day-field,
+.placeholder-hide::-webkit-datetime-edit-year-field,
+.placeholder-hide:focus::-webkit-datetime-edit-text,
+.placeholder-hide:focus::-webkit-datetime-edit-month-field,
+.placeholder-hide:focus::-webkit-datetime-edit-day-field,
+.placeholder-hide:focus::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+.placeholder-hide::-webkit-datetime-edit-text,
+.placeholder-hide::-webkit-datetime-edit-month-field,
+.placeholder-hide::-webkit-datetime-edit-day-field,
+.placeholder-hide::-webkit-datetime-edit-year-field,
+.placeholder-hide::selection::-webkit-datetime-edit-text,
+.placeholder-hide::selection::-webkit-datetime-edit-month-field,
+.placeholder-hide::selection::-webkit-datetime-edit-day-field,
+.placeholder-hide::selection::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+.placeholder-hide::-webkit-datetime-edit-fields-wrapper,
+.placeholder-hide::-webkit-datetime-edit-text,
+.placeholder-hide::-webkit-datetime-edit-month-field,
+.placeholder-hide::-webkit-datetime-edit-day-field,
+.placeholder-hide::-webkit-datetime-edit-year-field {
+  background-color: transparent;
+}
+
+.placeholder-hide::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+}
+
+/* input[type='date'].placeholder-shown::-webkit-datetime-edit::after {
+  content: attr(data-placeholder);
+} */
+
+.post-parsed {
+  font-weight: 200;
+}
+.post-parsed p {
+  margin: 1rem 0;
+}
+.post-parsed p span {
+  background-color: none;
+}
+.post-parsed img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.6rem;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.post-parsed ul li,
+ol li {
+  margin: 1rem 0;
+  font-style: italic;
+  list-style: none;
+  font-weight: 300;
+}
+
+@media (min-width: 550px) {
+  .post-parsed img {
+    border-radius: 0.8rem;
+    margin: 2rem 0;
+  }
+}
+
+@media (min-width: 800px) {
+  .post-parsed p {
+    margin: 2rem 0;
+  }
+
+  .post-parsed img {
+    border-radius: 1rem;
+    margin: 3rem 0;
+  }
+}

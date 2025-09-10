@@ -1,0 +1,137 @@
+'use client'
+import React, { useEffect, useState, useContext } from 'react'
+import Image from 'next/image'
+import ReactHtmlParser from 'react-html-parser'
+import ShareSocialMedia from '@/app/components/page-post/ShareSocialMedia'
+import ButtonLikeFav from '@/app/components/ui/ButtonLikeFav'
+import { getNewData } from '@/services/api-content'
+import { cleanDataPosts } from '@/utils/functions'
+import SliderRecommended from '@/app/components/page-post/SliderRecommended'
+import { StateContext } from '@/providers/StateProvider'
+import Link from 'next/link'
+
+import dictionary from '@/dictionary/lang.json'
+
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { CATEGORIES } from '@/lib/constants'
+
+export default function page() {
+  const { apiCategories } = useContext(StateContext)
+  const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [contentRecommended, setContentRecommended] = useState([])
+
+  useEffect(() => {
+    if (!apiCategories) return
+    const categoriesReq = [CATEGORIES['nutrition'], CATEGORIES['trainers']]
+    const getData = async () => {
+      const res = await getNewData(
+        `/posts?per_page=10&categories=${categoriesReq}`,
+      )
+
+      setContentRecommended(res.data)
+    }
+    getData()
+  }, [apiCategories])
+
+  const catSlugToShow = 'zumba'
+
+  useEffect(() => {
+    if (!apiCategories) return
+
+    const categoriesFiltered = apiCategories
+      ?.filter((category) => category.slug === catSlugToShow)
+      .map((item) => item.id)
+    const catString = categoriesFiltered.join(',')
+    const slug = `/posts?per_page=20&page=${page}&categories=${catString}`
+
+    getNewData(slug).then((res) => {
+      setPosts(res.data)
+      setTotalPages(res.pages)
+    })
+  }, [page, apiCategories])
+
+  return (
+    <main
+      className={`z-20 mt-12 mb-10 md:mt-14 md:mb-24 lg:mt-20 w-screen max-w-screen-xl h-full min-h-fit px-3 pt-0 text-White flex flex-col items-center gap-4 md:rounded-xl`}
+    >
+      <div className="z-50 top-0 m-0 right-0 w-full lg:max-w-5xl h-10 flex items-center justify-end gap-3">
+        <h1
+          className={
+            ' w-full uppercase font-oswaldSemBold pointer-events-none cursor-default text-xl md:text-2xl lg:text-3xl text-White text-left  '
+          }
+        >
+          {dictionary["Zumba's Classes"]}
+        </h1>
+        <ShareSocialMedia
+          title={dictionary["Zumba's Classes"]}
+          category="Zumba"
+        />
+      </div>
+      <section className=" w-full lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
+        {posts?.map((post, i) => {
+          const imageFeaturedPattern =
+            /<img\s+[^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*src=["'](.+?)["'][^>]*>|<img\s+[^>]*src=["'](.+?)["'][^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*>/i
+          const match = imageFeaturedPattern.exec(post?.content?.rendered)
+          const imageFeatured = match[1]
+
+          const postCleaned = cleanDataPosts({
+            posts: new Array(post),
+            categorySlug: catSlugToShow,
+          })
+          return (
+            <Link
+              key={i}
+              href={`/${catSlugToShow}/${post?.slug}`}
+              className=" w-full h-fit"
+            >
+              <div className=" w-full h-fit flex flex-col items-left justify-center gap-1">
+                <div className="relative w-full h-full aspect-[9/14] ">
+                  <Image
+                    className="w-full h-full object-cover shadow-md shadow-black/50 rounded-lg"
+                    fill
+                    src={imageFeatured}
+                    alt={`${post?.title?.rendered}`}
+                  />
+                  <div className=" z-10 absolute top-0 left-0 w-full h-full bg-black/40 rounded-lg"></div>
+                  <div className=" z-20 absolute top-1 right-1 w-6 h-6 pointer-events-none">
+                    <ButtonLikeFav color="#cbeb37" post={postCleaned[0]} />
+                  </div>
+                </div>
+
+                <p className=" h-fit pb-1  font-oswaldReg text-xs leading-3 line-clamp-2 text-White/80">
+                  {ReactHtmlParser(post?.title?.rendered)}
+                </p>
+              </div>
+            </Link>
+          )
+        })}
+      </section>
+      <div className=" w-full flex items-center justify-around font-oswaldMed">
+        <button
+          type="button"
+          onClick={
+            page > 1 ? () => setPage(page - 1) : () => setPage(totalPages)
+          }
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <span>
+          {page} / {totalPages}
+        </span>
+        <button
+          type="button"
+          onClick={
+            page < totalPages ? () => setPage(page + 1) : () => setPage(1)
+          }
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+
+      <SliderRecommended posts={contentRecommended} />
+      <div className="w-full h-10 md:h-20"></div>
+    </main>
+  )
+}

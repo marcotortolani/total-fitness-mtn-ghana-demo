@@ -1,0 +1,45 @@
+¿Cómo cargar contenido en Wordpress?
+
+- Párrafo de bajada:
+
+<p class="bajada">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+- Imágen destacada (debajo de la bajada):
+<p class="parrafo">
+  <img class="img-destacada" src="..." />
+</p>
+
+- Título DESTACADO 1:
+<h2 class="destacado-1">Lorem ipsum dolor sit amet.</h2>
+
+- Título DESTACADO 2:
+<h2 class="destacado-2">Lorem ipsum dolor sit amet.</h2>
+
+- Párrafo común:
+<p class="parrafo">Parrafo comun:Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+- Imágen común (situada donde se la ubique):
+<p class="parrafo">
+  <img class="imagen" src="..." />
+</p>
+
+- Lista:
+<ul class="lista">
+  <li>
+    <strong>Lista 1: Lorem ipsum dolor sit amet</strong>
+    Ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
+  </li>
+  <li>
+    <strong>Lista 2: Lorem ipsum dolor sit amet</strong>
+    Ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
+  </li>
+  <li>
+  <strong>Lista 3: Lorem ipsum dolor sit amet</strong>
+  Ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
+  </li>
+</ul>
+
+- Imágenes para Slider:
+<p class="parrafo">
+  <img class="slider" src="..." />
+</p>
