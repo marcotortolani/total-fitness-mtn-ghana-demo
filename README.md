@@ -41,6 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   Se corrige la sección de SHORTS
   Update en los nombres de los stores para evitar conflictos con otros productos
   Fix fetching data con tags y categorias en ingles
+  Se corrige el armado de rutinas y training
 
 - v1.2.0:
   Se modifica el portal para tomar los textos desde un Dictionary
