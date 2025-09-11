@@ -64,7 +64,7 @@ const RoutineUserScreen = ({ onHandleSuccess }) => {
                 }  peer uppercase text-left flex justify-start  font-oswaldReg px-6 left-0  placeholder:text-LightGray text-Black h-full focus:ring-0  border-none`}
               />
               <label
-                className={`absolute top-0 left-0 px-6 uppercase text-left font-oswaldLight h-full flex items-center bg-White text-LightGray pointer-events-none
+                className={`absolute top-0 left-0 px-6 pr-8 uppercase text-left font-oswaldLight h-full flex items-center bg-White text-LightGray pointer-events-none
         ${user.birth ? 'hidden' : 'block'}
         peer-focus:hidden`}
               >
