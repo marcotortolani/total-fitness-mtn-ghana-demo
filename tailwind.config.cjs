@@ -3,7 +3,6 @@ const plugin = require('tailwindcss/plugin')
 module.exports = {
   darkMode: ['class'],
   content: [
-    './node_modules/flowbite-react/**/*.js',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
@@ -79,9 +78,8 @@ module.exports = {
             textShadow: value,
           }),
         },
-        { values: theme('textShadow') }
+        { values: theme('textShadow') },
       )
     }),
-    require('flowbite/plugin'),
   ],
 }

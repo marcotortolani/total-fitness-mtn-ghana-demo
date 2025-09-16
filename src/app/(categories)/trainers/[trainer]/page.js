@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import ShareSocialMedia from '@/app/components/page-post/ShareSocialMedia'
 import ButtonLikeFav from '@/app/components/ui/ButtonLikeFav'
 import { getNewData } from '@/services/api-content'
@@ -15,6 +15,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { CATEGORIES } from '@/lib/constants'
 
 import dictionary from '@/dictionary/lang.json'
+
+import defaultImage from 'public/assets/totalfitness-horizontal.webp'
 
 export default function page() {
   const { trainer } = useParams()
@@ -69,10 +71,7 @@ export default function page() {
         >
           {trainer}
         </h1>
-        <ShareSocialMedia
-          title={dictionary['Trainers']}
-          category="trainers"
-        />
+        <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
       </div>
 
       <section className=" w-full h-fit lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
@@ -80,7 +79,7 @@ export default function page() {
           const imageFeaturedPattern =
             /<img\s+[^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*src=["'](.+?)["'][^>]*>|<img\s+[^>]*src=["'](.+?)["'][^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*>/i
           const match = imageFeaturedPattern.exec(post?.content?.rendered)
-          const imageFeatured = match[1]
+          const imageFeatured = match ? match[1] : defaultImage
 
           const postCleaned = cleanDataPosts({
             posts: new Array(post),
@@ -108,7 +107,7 @@ export default function page() {
                 </div>
 
                 <p className=" pb-1 font-oswaldReg text-xs leading-3 line-clamp-2 text-White/80">
-                  {ReactHtmlParser(post?.title?.rendered)}
+                  {parse(post?.title?.rendered)}
                 </p>
               </div>
             </Link>

@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import ShareSocialMedia from './ShareSocialMedia'
 import Breadcrumb from '../ui/Breadcrumb'
-import ButtonLikeFav from "../ui/ButtonLikeFav"
+import ButtonLikeFav from '../ui/ButtonLikeFav'
 import { processDataRendered } from '@/utils/functions'
 import StyledElements from './StyledElements'
 
@@ -34,7 +34,7 @@ export default async function VideoPost({ dataVideo, vimeoNumber, children }) {
             ' w-full uppercase font-oswaldItalic pointer-events-none cursor-default text-[1.8rem] leading-[2rem] md:text-3xl lg:text-4xl text-Black text-left  '
           }
         >
-          {ReactHtmlParser(dataVideo?.title.rendered)}
+          {parse(dataVideo?.title.rendered)}
         </h1>
         <div className=" z-20 w-full h-8 flex items-center justify-start gap-4">
           <ShareSocialMedia

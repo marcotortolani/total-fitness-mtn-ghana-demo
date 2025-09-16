@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import ImageMissing from './ImageMissing'
 import ButtonSeePost from './ui/ButtonSeePost'
 import dictionary from '@/dictionary/lang.json'
@@ -49,7 +49,7 @@ export default function ShortCard({ index, qty, post, miniCard, accentColor }) {
             <span
               className={` bg-White/80 px-1 pr-2 box-decoration-clone leading-[1.7rem] md:leading-[1.9rem] lg:leading-[2.2rem]`}
             >
-              {ReactHtmlParser(post.title)}
+              {parse(post.title)}
             </span>
           </h3>
         </div>

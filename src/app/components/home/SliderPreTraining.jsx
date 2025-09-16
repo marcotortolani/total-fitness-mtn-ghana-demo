@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { TitleSummary } from '../ui/TitleSummary'
 import ImageMissing from '../ImageMissing'
 import { getImageHeaderPost } from '@/utils/functions'
@@ -87,7 +87,7 @@ export default function SliderPreTraining({ posts }) {
                   </div>
                   {/* <div className=" absolute top-0 z-20 bg-black/40 w-full h-full rounded-lg "></div> */}
                   <p className=" px-1 mt-1  z-50 line-clamp-3  h-fit text-[0.6rem] xs:text-xs md:text-sm lg:text-base text-White">
-                    {ReactHtmlParser(post?.title?.rendered)}
+                    {parse(post?.title?.rendered)}
                   </p>
                 </div>
               </Link>

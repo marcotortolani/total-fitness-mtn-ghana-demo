@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState, useContext } from 'react'
 import Image from 'next/image'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import ShareSocialMedia from '@/app/components/page-post/ShareSocialMedia'
 import ButtonLikeFav from '@/app/components/ui/ButtonLikeFav'
 import { getNewData } from '@/services/api-content'
@@ -101,7 +101,7 @@ export default function page() {
                 </div>
 
                 <p className=" h-fit pb-1  font-oswaldReg text-xs leading-3 line-clamp-2 text-White/80">
-                  {ReactHtmlParser(post?.title?.rendered)}
+                  {parse(post?.title?.rendered)}
                 </p>
               </div>
             </Link>

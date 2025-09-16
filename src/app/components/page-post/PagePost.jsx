@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { cleanDataPosts, processDataRendered } from '@/utils/functions'
 import { getNewData } from '@/services/api-content'
 import { CATEGORIES } from '@/lib/constants'
@@ -34,7 +34,7 @@ export default async function PagePost({ slug, children, catSlug = '' }) {
             ' w-3/4 uppercase font-oswaldItalic pointer-events-none cursor-default text-[1.8rem] leading-[2rem] md:text-3xl lg:text-4xl text-White text-left  '
           }
         >
-          {ReactHtmlParser(post[0]?.title)}
+          {parse(post[0]?.title)}
         </h1>
         <div className=" w-fit h-10 flex items-end gap-2">
           <div className=" h-8 mb-1">

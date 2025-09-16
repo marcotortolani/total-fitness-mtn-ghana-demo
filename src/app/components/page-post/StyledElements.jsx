@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Poppins } from 'next/font/google'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -12,7 +12,6 @@ const poppins = Poppins({
 })
 
 export default function StyledElements({ el }) {
-
   switch (el.type) {
     case 'titulo':
       return <Title content={el.content} />
@@ -38,11 +37,7 @@ export default function StyledElements({ el }) {
 }
 
 function Title({ content }) {
-  return (
-    <h2 className=" font-semibold text-2xl">
-      TITULO: {ReactHtmlParser(content)}
-    </h2>
-  )
+  return <h2 className=" font-semibold text-2xl">TITULO: {parse(content)}</h2>
 }
 
 function Bajada({ content }) {
@@ -50,7 +45,7 @@ function Bajada({ content }) {
   if (content.includes('<span')) {
     contentStyled = content.replace(
       /<span>/,
-      '<span class="text-Primary font-semibold">'
+      '<span class="text-Primary font-semibold">',
     )
   } else {
     contentStyled = content
@@ -62,7 +57,7 @@ function Bajada({ content }) {
         ' w-full font-normal text-left text-base md:text-lg lg:text-xl text-White '
       }
     >
-      {ReactHtmlParser(contentStyled)}
+      {parse(contentStyled)}
     </p>
   )
 }
@@ -95,7 +90,7 @@ function Paragraph({ content }) {
   if (content.includes('<span')) {
     contentStyled = content.replace(
       /<span>/,
-      '<span class="text-Primary font-medium">'
+      '<span class="text-Primary font-medium">',
     )
   } else {
     contentStyled = content
@@ -107,7 +102,7 @@ function Paragraph({ content }) {
         ' font-normal text-[13px] md:text-[15px] lg:text-[17px] text-White'
       }
     >
-      {ReactHtmlParser(contentStyled)}
+      {parse(contentStyled)}
     </p>
   )
 }
@@ -119,7 +114,7 @@ function Destacado({ color, content }) {
         color === 'primary' ? 'bg-Primary' : 'bg-SecondaryDarker'
       } w-screen md:max-w-full px-6 py-4 font-oswaldItalic  text-White text-base md:text-lg lg:text-2xl`}
     >
-      {ReactHtmlParser(content)}
+      {parse(content)}
     </h2>
   )
 }
@@ -138,9 +133,9 @@ function List({ el }) {
           // className={' text-sm md:text-base lg:text-lg'}
         >
           <h4 className=" font-bold uppercase text-Primary">
-            {ReactHtmlParser(item.title)}
+            {parse(item.title)}
           </h4>
-          <p>{ReactHtmlParser(item.content)}</p>
+          <p>{parse(item.content)}</p>
         </li>
       ))}
     </ul>

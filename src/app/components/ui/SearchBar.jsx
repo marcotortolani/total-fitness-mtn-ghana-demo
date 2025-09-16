@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { useState, useEffect } from 'react'
 import { searchData } from '@/services/api-content'
 
@@ -110,7 +110,7 @@ export default function SearchBar({
                   className=" w-full h-full  hover:cursor-pointer "
                 >
                   <span className="line-clamp-1 text-left font-oswaldReg text-sm md:text-lg lg:text-xl">
-                    {ReactHtmlParser(result.title)}
+                    {parse(result.title)}
                   </span>
                 </button>
               </li>

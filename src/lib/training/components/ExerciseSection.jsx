@@ -13,7 +13,7 @@ import Image from 'next/image'
 import soundOffIcon from '../../../../public/assets/icons/sound-off.webp'
 import soundOnIcon from '../../../../public/assets/icons/sound-on.webp'
 import { formatTime } from '@/utils/util'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { PreparingCountdown } from '@/lib/training/components/PreparingCountdown'
 import { MotivationalMessages } from '@/lib/training/components/MotivationalMessages'
 import { useState, useEffect } from 'react'
@@ -201,7 +201,7 @@ export const ExerciseSection = () => {
               </div>
               <div className=" mt-4 w-full h-fit flex flex-col items-center gap-2">
                 <p className="  text-White  text-justify font-oswaldLight w-full h-fit px-2 text-base md:text-lg lg:text-xl leading-5 ">
-                  {ReactHtmlParser(extractedDescription)}
+                  {parse(extractedDescription)}
                 </p>
                 <ExerciseSectionImage />
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { PlayCircleIcon } from 'lucide-react'
 import ImageMissing from './ImageMissing'
 
@@ -36,7 +36,7 @@ export function CardVideo({ post, index, href, verticalAspect }) {
           } absolute bottom-3 md:bottom-5 md:left-5 w-5/6 text-Black line-clamp-2 uppercase font-medium text-start  pointer-events-none select-none`}
         >
           <span className=" px-2 pr-3 bg-White/80 box-decoration-clone leading-[1.2rem] md:leading-[1.9rem] lg:leading-[2.5rem]">
-            {ReactHtmlParser(post?.title)}
+            {parse(post?.title)}
           </span>
         </h3>
       </div>

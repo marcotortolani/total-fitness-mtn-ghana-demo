@@ -9,7 +9,7 @@ import {
   useRoutineStore,
   useUpdateRoutineStore,
 } from '@/lib/routine/routine-stores'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { useUserStore } from '@/lib/user/user-stores'
 import editIcon from '/public/assets/icons/perfilado/edit-icon.webp'
 import Lottie from 'lottie-react'
@@ -203,7 +203,7 @@ export const RoutineScreen = () => {
                         </div>
 
                         <p className="  font-oswaldReg text-xs md:text-sm lg:text-base lg:leading-5 xl:text-lg xl:leading-5 leading-3 line-clamp-2 text-White/80">
-                          {ReactHtmlParser(post?.title?.rendered)}
+                          {parse(post?.title?.rendered)}
                         </p>
                       </div>
                     </Link>

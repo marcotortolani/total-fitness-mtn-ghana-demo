@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getImageHeaderPost } from '@/utils/functions'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 
 export default function LatestPostsZumba({ posts }) {
   return (
@@ -31,7 +31,7 @@ export default function LatestPostsZumba({ posts }) {
               </div>
             </Link>
             <p className=" mt-1 z-50 line-clamp-2 px-0.5 h-fit font-oswaldLight text-[0.6rem] xs:text-xs md:text-sm lg:text-base text-White/80">
-              {ReactHtmlParser(post?.title?.rendered)}
+              {parse(post?.title?.rendered)}
             </p>
           </div>
         )

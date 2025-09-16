@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { TitleSummary } from '../ui/TitleSummary'
 import ImageMissing from '../ImageMissing'
 import { getImageHeaderPost } from '@/utils/functions'
@@ -91,7 +91,7 @@ export default function SliderShorts({ posts }) {
                     />
                   </div>
                   <p className=" absolute bottom-2 left-0 md:bottom-3 xl:bottom-4 px-2 md:pl-3 z-50 line-clamp-3  h-fit text-base leading-4 md:text-lg md:leading-5 xl:text-xl tracking-wide text-White">
-                    {ReactHtmlParser(post?.title?.rendered)}
+                    {parse(post?.title?.rendered)}
                   </p>
                 </div>
               </Link>

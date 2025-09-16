@@ -7,7 +7,7 @@ import dictionary from '@/dictionary/lang.json'
 import trainer01 from '/public/assets/img/entrenador4.webp'
 import trainer02 from '/public/assets/img/entrenador3.webp'
 import trainer03 from '/public/assets/img/entrenador2.webp'
-import trainer04 from '/public/assets/img/entrenador1.webp'
+// import trainer04 from '/public/assets/img/entrenador1.webp'
 import { CATEGORIES } from '@/lib/constants'
 import { getNewData } from '@/services/api-content'
 
@@ -33,36 +33,33 @@ export default async function Page() {
         >
           {dictionary['Trainers']}
         </h1>
-        <ShareSocialMedia
-          title={dictionary['Trainers']}
-          category="trainers"
-        />
+        <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
       </div>
-      <div className=" w-full h-fit grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+      <div className=" w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
         <Trainer
-          name="Carlos"
+          name="Omar"
           image={trainer01}
           position={dictionary['Cardio']}
-          href="/trainers/carlos"
+          href="/trainers/omar"
         />
         <Trainer
-          name="Elena"
+          name="Jibby"
           image={trainer02}
           position={dictionary['Aerobic']}
-          href="/trainers/elena"
+          href="/trainers/jibby"
         />
         <Trainer
-          name="Leo"
+          name="Samir Aboudou"
           image={trainer03}
           position={dictionary['Running']}
-          href="/trainers/leo"
+          href="/trainers/samir-aboudou"
         />
-        <Trainer
+        {/* <Trainer
           name="Carolina"
           image={trainer04}
           position={dictionary['Nutrionist']}
           href="/trainers/carolina"
-        />
+        /> */}
       </div>
 
       <SliderRecommended posts={data} />
