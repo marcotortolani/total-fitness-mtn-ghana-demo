@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getImageHeaderPost } from '@/utils/functions'
+import ImageMissing from '../ImageMissing'
 import parse from 'html-react-parser'
 
 export default function LatestPostsZumba({ posts }) {
