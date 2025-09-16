@@ -37,6 +37,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Versions
 
+- v1.2.2:
+  Se corrige falla en las dependencias con el Html Parser
+  Se corrige nombres de los trainers nuevos
+  Se elimina flowbite que no se estaba usando
+
 - v1.2.1:
   Se corrige la sección de SHORTS
   Update en los nombres de los stores para evitar conflictos con otros productos
