@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { TitleSummary } from '../ui/TitleSummary'
 import ImageMissing from '../ImageMissing'
-import { getImageHeaderPost } from '@/utils/functions'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
@@ -61,8 +61,6 @@ export default function SliderRecommended({ posts = [] }) {
       >
         {posts?.length > 0 &&
           posts?.map((post, index) => {
-            const imagePost = getImageHeaderPost(post)
-
             return (
               <SwiperSlide key={post?.id} className={` w-full  h-full `}>
                 <Link
@@ -72,10 +70,10 @@ export default function SliderRecommended({ posts = [] }) {
                 >
                   <div className="  aspect-[2/3] lg:aspect-square relative w-full h-full ">
                     <div className=" -z-10 relative  top-0 w-full h-full  overflow-hidden">
-                      {imagePost?.length > 10 ? (
+                      {post?.featured_image?.length ? (
                         <Image
                           className={`relative object-cover w-full h-full rounded-lg`}
-                          src={imagePost}
+                          src={post?.featured_image[0]}
                           as="image"
                           fill
                           priority={index === 0}

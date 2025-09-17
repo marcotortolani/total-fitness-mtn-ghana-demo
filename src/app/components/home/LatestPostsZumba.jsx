@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getImageHeaderPost } from '@/utils/functions'
+
 import ImageMissing from '../ImageMissing'
 import parse from 'html-react-parser'
 
@@ -9,16 +9,15 @@ export default function LatestPostsZumba({ posts }) {
   return (
     <div className=" w-full grid grid-cols-3 gap-2 md:gap-4 xl:gap-6 ">
       {posts?.map((post, index) => {
-        const imagePost = getImageHeaderPost(post)
         return (
           <div key={post?.id} className=" w-full h-full">
             <Link href={`/zumba/${post?.slug}`} target="_self" className="">
               <div className="  aspect-[3/2] xl:aspect-video relative w-full h-full ">
                 <div className=" -z-10 relative  top-0 w-full h-full  overflow-hidden">
-                  {imagePost?.length > 0 ? (
+                  {post?.featured_image?.length ? (
                     <Image
                       className={`  relative object-cover w-full h-full rounded-lg`}
-                      src={imagePost}
+                      src={post?.featured_image[0]}
                       as="image"
                       fill
                       priority={index === 0}

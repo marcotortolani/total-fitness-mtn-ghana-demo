@@ -73,11 +73,6 @@ export default function page() {
       </div>
       <section className=" w-full lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
         {posts?.map((post, i) => {
-          const imageFeaturedPattern =
-            /<img\s+[^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*src=["'](.+?)["'][^>]*>|<img\s+[^>]*src=["'](.+?)["'][^>]*class=["'][^"']*img-destacada[^"']*["'][^>]*>/i
-          const match = imageFeaturedPattern.exec(post?.content?.rendered)
-          const imageFeatured = match[1]
-
           const postCleaned = cleanDataPosts({
             posts: new Array(post),
             categorySlug: 'nutrition',
@@ -94,7 +89,7 @@ export default function page() {
                   <Image
                     className="w-full h-full object-cover shadow-md shadow-black/50 rounded-lg"
                     fill
-                    src={imageFeatured}
+                    src={post?.featured_image[0]}
                     alt={`${post?.title?.rendered}`}
                   />
                   <div className=" z-10 absolute top-0 left-0 w-full h-full bg-black/30 rounded-lg"></div>

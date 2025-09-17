@@ -17,9 +17,9 @@ export default async function Page() {
     `/posts?per_page=14&categories=${categoriesReq}`,
   )
 
-  // const { data: trainers } = await getNewData(
-  //   `/categories?per_page=50&parent=${CATEGORIES['trainers']}`,
-  // )
+  const { data: trainers } = await getNewData(
+    `/categories?per_page=50&parent=${CATEGORIES['trainers']}`,
+  )
 
   return (
     <main
@@ -36,30 +36,15 @@ export default async function Page() {
         <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
       </div>
       <div className=" w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-        <Trainer
-          name="Omar"
-          image={trainer01}
-          position={dictionary['Cardio']}
-          href="/trainers/omar"
-        />
-        <Trainer
-          name="Jibby"
-          image={trainer02}
-          position={dictionary['Aerobic']}
-          href="/trainers/jibby"
-        />
-        <Trainer
-          name="Samir Aboudou"
-          image={trainer03}
-          position={dictionary['Running']}
-          href="/trainers/samir-aboudou"
-        />
-        {/* <Trainer
-          name="Carolina"
-          image={trainer04}
-          position={dictionary['Nutrionist']}
-          href="/trainers/carolina"
-        /> */}
+        {trainers &&
+          trainers.map((trainer) => (
+            <Trainer
+              key={trainer.id}
+              name={trainer.name}
+              image={trainer?.image}
+              href={`/trainers/${trainer.slug}`}
+            />
+          ))}
       </div>
 
       <SliderRecommended posts={data} />

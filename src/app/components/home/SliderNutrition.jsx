@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { TitleSummary } from '../ui/TitleSummary'
 import ImageMissing from '../ImageMissing'
-import { getImageHeaderPost } from '@/utils/functions'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
@@ -53,16 +53,10 @@ export default function SliderNutrition({ posts }) {
         }}
       >
         {posts?.map((post, index) => {
-          const imagePost = getImageHeaderPost(post)
-
           return (
             <SwiperSlide
               key={`${post.id}-nutrition-${index}`}
               className={` w-full  h-full `}
-              // style={{
-              //   marginLeft: index === 0 ? ' 10px ' : ' 0px ',
-              //   marginRight: index === 5 ? ' 10px ' : ' 0px ',
-              // }}
             >
               <Link
                 href={`/nutrition/${post?.slug}`}
@@ -71,10 +65,10 @@ export default function SliderNutrition({ posts }) {
               >
                 <div className="   relative w-full h-full ">
                   <div className=" -z-10 relative aspect-[2/3] lg:aspect-[5/6] top-0 w-full h-full  overflow-hidden">
-                    {imagePost?.length > 0 ? (
+                    {post?.featured_image?.length ? (
                       <Image
                         className={`  relative object-cover w-full h-full rounded-lg`}
-                        src={imagePost}
+                        src={post?.featured_image[0]}
                         as="image"
                         fill
                         priority={index === 0}
@@ -85,7 +79,7 @@ export default function SliderNutrition({ posts }) {
                       <ImageMissing />
                     )}
                   </div>
-                  {/* <div className=" absolute top-0 z-20 bg-black/40 w-full h-full rounded-lg "></div> */}
+
                   <p className=" px-1 mt-1  z-50 line-clamp-3  h-fit text-[0.6rem] xs:text-xs md:text-sm lg:text-base text-White">
                     {post?.title?.rendered}
                   </p>

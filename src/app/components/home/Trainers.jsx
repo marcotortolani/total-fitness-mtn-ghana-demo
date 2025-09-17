@@ -3,12 +3,18 @@ import Link from 'next/link'
 import { TitleSummary } from '../ui/TitleSummary'
 import dictionary from '@/dictionary/lang.json'
 
-import trainer01 from '/public/assets/img/entrenador4.webp'
-import trainer02 from '/public/assets/img/entrenador3.webp'
-import trainer03 from '/public/assets/img/entrenador2.webp'
-// import trainer04 from '/public/assets/img/entrenador1.webp'
+import { getNewData } from '@/services/api-content'
+import { CATEGORIES } from '@/lib/constants'
 
-export default function Trainers() {
+export default async function Trainers() {
+  const { data: trainers } = await getNewData(
+    `/categories?per_page=50&parent=${CATEGORIES['trainers']}`,
+  )
+
+  if (trainers.length === 0) {
+    return null
+  }
+
   return (
     <section className=" z-50  w-screen md:w-full lg:max-w-screen-lg min-[1760px]:max-w-screen-xl px-3 flex flex-col items-start gap-2 xl:gap-3 relative top-0 ">
       <div className=" pl-1 md:pl-2 ">
@@ -18,30 +24,15 @@ export default function Trainers() {
         />
       </div>
       <div className=" w-full h-fit grid grid-cols-3 grid-rows-1 gap-2 md:gap-4 lg:gap-6 min-[1760px]:gap-10">
-        <Trainer
-          name="Omar"
-          image={trainer01}
-          position={dictionary['Cardio']}
-          href="/trainers/omar"
-        />
-        <Trainer
-          name="Jibby"
-          image={trainer02}
-          position={dictionary['Aerobic']}
-          href="/trainers/jibby"
-        />
-        <Trainer
-          name="Samir Aboudou"
-          image={trainer03}
-          position={dictionary['Running']}
-          href="/trainers/samir-aboudou"
-        />
-        {/* <Trainer
-          name="Carolina"
-          image={trainer04}
-          position={dictionary['Nutrionist']}
-          href="/trainers/carolina"
-        /> */}
+        {trainers &&
+          trainers.map((trainer) => (
+            <Trainer
+              key={trainer.id}
+              name={trainer.name}
+              image={trainer?.image}
+              href={`/trainers/${trainer.slug}`}
+            />
+          ))}
       </div>
 
       <div className=" mx-auto mt-2 h-fit">
@@ -63,13 +54,25 @@ export const Trainer = ({ href, name, position, image }) => {
       className="group w-full h-fit aspect-square flex flex-col items-center gap-0.5"
     >
       <div className=" w-full h-full rounded-lg overflow-hidden ">
-        <Image
-          className={` relative object-cover h-full aspect-square group-hover:scale-110 transition-all duration-500 ease-in-out`}
-          src={image}
-          as="image"
-          // sizes="(min-width: 180px), 80vw, 100vw"
-          alt={`${dictionary['Trainer']} ${name} - ${position}`}
-        />
+        {image?.length ? (
+          <Image
+            className={` relative object-cover w-full h-full aspect-square group-hover:scale-110 transition-all duration-500 ease-in-out`}
+            src={image}
+            as="image"
+            width={200}
+            height={200}
+            alt={`${dictionary['Trainer']} ${name} - ${position}`}
+          />
+        ) : (
+          <Image
+            className={` border-neutral-400 border relative object-cover w-full h-full p-10 aspect-square group-hover:scale-110 transition-all duration-500 ease-in-out rounded-xl`}
+            src="/assets/favicon-totalfitness.webp"
+            as="image"
+            width={200}
+            height={200}
+            alt={`${dictionary['Trainer']} ${name} - ${position}`}
+          />
+        )}
       </div>
       <p className=" text-center text-White/80 text-xs md:text-sm lg:text-base xl:text-lg font-oswaldReg">
         {name}

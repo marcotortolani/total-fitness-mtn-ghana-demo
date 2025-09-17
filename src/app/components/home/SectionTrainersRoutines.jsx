@@ -11,5 +11,9 @@ export default async function SectionTrainersRoutines() {
     `/posts?per_page=10&categories=${CATEGORIES[catName]}&tags=${TAGS['video']}`,
   )
 
+  if (data.length === 0) {
+    return null
+  }
+
   return data?.length > 0 && <SliderTrainersRoutines posts={data} />
 }

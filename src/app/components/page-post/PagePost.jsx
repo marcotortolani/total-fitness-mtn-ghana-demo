@@ -57,7 +57,8 @@ export default async function PagePost({ slug, children, catSlug = '' }) {
               {imagesSlider?.length > 0 && el.type === 'destacado-2' && (
                 <ImagesSlider images={imagesSlider} centered key={el.content} />
               )}
-              {hasVideo && el.type === 'img-destacada' ? (
+              {hasVideo &&
+              (el.type === 'imagen' || el.type === 'img-destacada') ? (
                 <></>
               ) : (
                 <StyledElements key={el.content} el={el} />

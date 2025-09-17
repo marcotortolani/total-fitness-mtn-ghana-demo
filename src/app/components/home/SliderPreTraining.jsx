@@ -5,9 +5,9 @@ import Link from 'next/link'
 import parse from 'html-react-parser'
 import { TitleSummary } from '../ui/TitleSummary'
 import ImageMissing from '../ImageMissing'
-import { getImageHeaderPost } from '@/utils/functions'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Autoplay, Navigation } from 'swiper/modules'
+import { Pagination, Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -53,16 +53,10 @@ export default function SliderPreTraining({ posts }) {
         }}
       >
         {posts?.map((post, index) => {
-          const imagePost = getImageHeaderPost(post)
-
           return (
             <SwiperSlide
               key={`${post.id}-pre-training-${index}`}
               className={` w-full  h-full `}
-              // style={{
-              //   marginLeft: index === 0 ? ' 10px ' : ' 0px ',
-              //   marginRight: index === 5 ? ' 10px ' : ' 0px ',
-              // }}
             >
               <Link
                 href={`/${post?.slug}`}
@@ -71,10 +65,10 @@ export default function SliderPreTraining({ posts }) {
               >
                 <div className=" relative w-full h-full ">
                   <div className=" -z-10 relative  top-0 w-full h-full aspect-[2/3] lg:aspect-[5/6] rounded-lg overflow-hidden">
-                    {imagePost?.length > 10 ? (
+                    {post?.featured_image?.length ? (
                       <Image
                         className={`relative object-cover w-full h-full group-hover:scale-110 transition-all duration-500 ease-in-out`}
-                        src={imagePost}
+                        src={post?.featured_image[0]}
                         as="image"
                         fill
                         priority={index === 0}

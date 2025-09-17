@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic'
 import { PlayIcon } from './PlayIcon'
 // import ShareSocialMedia from '../page-post/ShareSocialMedia'
 // import ButtonLikeFav from '../ui/ButtonLikeFav'
-// import { getImageHeaderPost } from '@/utils/functions'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
