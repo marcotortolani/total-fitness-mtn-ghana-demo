@@ -41,6 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   Se corrige falla en las dependencias con el Html Parser
   Se corrige nombres de los trainers nuevos
   Se elimina flowbite que no se estaba usando
+  Se arregla el uso de imagenes destacadas para posts y categorias
 
 - v1.2.1:
   Se corrige la sección de SHORTS
