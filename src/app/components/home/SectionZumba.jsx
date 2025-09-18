@@ -5,8 +5,6 @@ import { getNewData } from '@/services/api-content'
 import { CATEGORIES } from '@/lib/constants'
 import dictionary from '@/dictionary/lang.json'
 
-import bannerZumba from '/public/assets/img/banner-zumba.webp'
-import ImageMissing from '../ImageMissing'
 import LatestPostsZumba from './LatestPostsZumba'
 
 export default async function SectionZumba() {
@@ -14,26 +12,21 @@ export default async function SectionZumba() {
   const { data } = await getNewData(
     `/posts?per_page=3&categories=${CATEGORIES[catName]}`,
   )
-  
 
   return (
     <section className=" z-50  w-screen md:w-full lg:max-w-screen-xl h-fit my-10 relative top-0 px-1 flex flex-col gap-0 md:gap-2 xl:gap-4 ">
       <Link href={`/${catName}`} className="w-full ">
         <div className=" relative mx-auto w-full mb-2 aspect-[7/3] md:aspect-[9/3] lg:aspect-[4/1] cursor-pointer flex flex-col items-center justify-center rounded-lg">
           <div className=" -z-10 relative top-0 w-full h-full  overflow-hidden rounded-lg md:rounded-xl lg:rounded-xl ">
-            {bannerZumba ? (
-              <Image
-                className={`  relative w-full h-auto lg:w-auto lg:h-full object-cover md:object-top rounded-[inherit]`}
-                src={bannerZumba}
-                as="image"
-                fill
-                priority={true}
-                sizes="(min-width: 180px), 80vw, 100vw"
-                alt={dictionary["Banner Zumba's Classes"]}
-              />
-            ) : (
-              <ImageMissing />
-            )}
+            <Image
+              className={`  relative w-full h-auto lg:w-auto lg:h-full object-cover md:object-top rounded-[inherit]`}
+              src={'/assets/img/banner-zumba2.webp'}
+              as="image"
+              fill
+              priority={true}
+              sizes="(min-width: 180px), 80vw, 100vw"
+              alt={dictionary["Banner Zumba's Classes"]}
+            />
           </div>
 
           <div className=" absolute w-full  h-full px-6 flex flex-col items-start justify-center  xs:gap-1 lg:gap-4 xl:gap-6 ">
