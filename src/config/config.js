@@ -8,4 +8,4 @@ export const ENDPOINT_VALIDATION_HASH =
   URL_CONTENT_BASE + 'wp-json/api/v1/validate_hash/'
 export const URL_SUBSCRIPTION = '/'
 export const URL_CHATBOT =
-  'https://test.moob.club:8005/IA/gh/mtn/totalfitness/chat'
+  'https://test.moob.club:8005/IA/gh/mtn/totalfitness/chat/index.php'
