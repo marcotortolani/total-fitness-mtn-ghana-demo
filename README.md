@@ -37,6 +37,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Versions
 
+- v1.2.3:
+  Se corrige falla boton de RoutineWeeks, se reemplaza Link por button
+
 - v1.2.2:
   Se corrige falla en las dependencias con el Html Parser
   Se corrige nombres de los trainers nuevos

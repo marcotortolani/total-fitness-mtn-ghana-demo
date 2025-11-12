@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
 import { ChevronRight, ChevronDown } from 'lucide-react'
 import { useRoutineStore } from '@/lib/routine/routine-stores'
 import {
@@ -14,6 +15,7 @@ import dictionary from '@/dictionary/lang.json'
 export const RoutineWeeks = () => {
   const { profile, routine } = useRoutineStore()
   const sortedDays = getSortedDays(profile.days)
+  const router = useRouter()
 
   // Mantenemos el estado de apertura para cada semana en un array
   const [openWeeks, setOpenWeeks] = useState([])
@@ -102,11 +104,13 @@ export const RoutineWeeks = () => {
                     (!i || prevExerciseCompleted) && (!weekIndex || prevWeek)
 
                   return (
-                    <Link
+                    <button
                       key={day}
-                      href={
-                        isActive ? `/routine/${week}/${i + 1}/${level}` : ''
-                      }
+                      onClick={() => {
+                        if (isActive) {
+                          router.push(`/routine/${week}/${i + 1}/${level}`)
+                        }
+                      }}
                       className={` ${
                         isActive ? ' bg-White ' : ' bg-LightGray '
                       } row-span-1 relative z-0 w-full h-full min-h-[60px] flex items-center justify-between px-6 py-4 overflow-hidden uppercase text-white text-sm rounded-lg transition-all duration-200 ease-in-out`}
@@ -144,7 +148,7 @@ export const RoutineWeeks = () => {
                           }`}
                         />
                       )}
-                    </Link>
+                    </button>
                   )
                 })}
               </div>
