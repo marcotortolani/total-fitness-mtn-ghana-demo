@@ -20,7 +20,7 @@ export const metadata = {
     dictionary[
       'Fitness content portal & workout routine creation app. Designed and developed by Media Moob.'
     ],
-  version: '1.2.3',
+  version: '1.2.5',
   metadataBase: new URL('https://app-fitness-demo.vercel.app/'),
   openGraph: {
     title: dictionary['Total Fitness'],

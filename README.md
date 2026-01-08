@@ -37,6 +37,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Versions
 
+- v1.2.5:
+  Se corrige la version de NextJS por vulnerabilidades
+  Se corrigen las cards de trainers en home
+  Se corrige la grilla en /trainers
+  Se corrigen los params del fetch del section Pre Training
+
 - v1.2.3:
   Se corrige falla boton de RoutineWeeks, se reemplaza Link por button
 
@@ -61,4 +67,3 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - v1.0.0:
   Primer versión con rutinas y training on demand
-  

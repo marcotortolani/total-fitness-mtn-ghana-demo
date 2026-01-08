@@ -16,7 +16,7 @@ import { CATEGORIES } from '@/lib/constants'
 
 import dictionary from '@/dictionary/lang.json'
 
-import defaultImage from 'public/assets/totalfitness-horizontal.webp'
+import defaultImage from '/public/assets/totalfitness-horizontal.webp'
 
 export default function page() {
   const { trainer } = useParams()

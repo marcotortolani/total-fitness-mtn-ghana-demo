@@ -7,7 +7,7 @@ export default async function SectionPreTraining() {
   const catName = 'stretches-and-warm-ups'
 
   const { data } = await getNewData(
-    `/posts?per_page=10&categories=${CATEGORIES[catName]}&tags=${TAGS['video']}`,
+    `/posts?per_page=10&categories=${CATEGORIES[catName]}`,
   )
 
   return data?.length > 0 && <SliderPreTraining posts={data} />

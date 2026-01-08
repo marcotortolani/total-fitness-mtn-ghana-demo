@@ -4,10 +4,6 @@ import { Trainer } from '@/app/components/home/Trainers'
 
 import dictionary from '@/dictionary/lang.json'
 
-import trainer01 from '/public/assets/img/entrenador4.webp'
-import trainer02 from '/public/assets/img/entrenador3.webp'
-import trainer03 from '/public/assets/img/entrenador2.webp'
-// import trainer04 from '/public/assets/img/entrenador1.webp'
 import { CATEGORIES } from '@/lib/constants'
 import { getNewData } from '@/services/api-content'
 
@@ -35,7 +31,7 @@ export default async function Page() {
         </h1>
         <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
       </div>
-      <div className=" w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+      <div className="relative w-full h-full grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
         {trainers &&
           trainers.map((trainer) => (
             <Trainer
