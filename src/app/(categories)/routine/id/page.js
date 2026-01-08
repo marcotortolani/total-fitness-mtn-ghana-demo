@@ -7,7 +7,7 @@ import useCountdown from '@/hooks/useCountDown'
 
 import dictionary from '@/dictionary/lang.json'
 
-import videoIcon from 'public/assets/icons/elementos-perfilado/video-icon.svg'
+import videoIcon from '/public/assets/icons/elementos-perfilado/video-icon.svg'
 import {
   X,
   Play,
