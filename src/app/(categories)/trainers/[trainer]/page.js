@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useContext } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import parse from 'html-react-parser'
 import ShareSocialMedia from '@/app/components/page-post/ShareSocialMedia'
@@ -9,14 +10,12 @@ import { getNewData } from '@/services/api-content'
 import { cleanDataPosts } from '@/utils/functions'
 import SliderRecommended from '@/app/components/page-post/SliderRecommended'
 import { StateContext } from '@/providers/StateProvider'
-import Link from 'next/link'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { CATEGORIES } from '@/lib/constants'
+import ImageMissing from '@/app/components/ImageMissing'
 
 import dictionary from '@/dictionary/lang.json'
-
-import defaultImage from '/public/assets/totalfitness-horizontal.webp'
 
 export default function page() {
   const { trainer } = useParams()
@@ -25,13 +24,14 @@ export default function page() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [contentRecommended, setContentRecommended] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!apiCategories) return
     const categoriesReq = [
-      CATEGORIES['healthy-lifestyle'],
-      CATEGORIES['sports'],
-      CATEGORIES['nutrition'],
+      CATEGORIES['vida-saludable'],
+      CATEGORIES['deportes'],
+      CATEGORIES['nutricion'],
     ]
     const getData = async () => {
       const res = await getNewData(
@@ -53,86 +53,265 @@ export default function page() {
 
     const slug = `/posts?per_page=12&page=${page}&categories=${catString}`
 
+    setIsLoading(true)
     getNewData(slug).then((res) => {
       setPosts(res.data)
       setTotalPages(res.pages)
+      setIsLoading(false)
     })
   }, [trainer, page, apiCategories])
 
   return (
     <main
-      className={`z-20 mt-12 mb-10 md:mt-14 md:mb-24 lg:mt-20 w-screen max-w-screen-xl h-full min-h-fit px-3 pt-0 text-White flex flex-col items-center gap-4 md:rounded-xl`}
+      className={`z-20 mt-12 mb-10 md:mt-14 md:mb-24 lg:mt-20 w-screen max-w-screen-xl h-full min-h-fit px-3 pt-0 text-white flex flex-col items-center gap-4 md:rounded-xl`}
     >
       <div className="z-50 top-0 m-0 right-0 w-full lg:max-w-5xl h-10 flex items-center justify-end gap-3">
         <h1
           className={
-            ' w-full uppercase font-oswaldSemBold pointer-events-none cursor-default text-xl md:text-2xl lg:text-3xl text-White text-left  '
+            ' w-full uppercase font-oswaldSemBold pointer-events-none cursor-default text-xl md:text-2xl lg:text-3xl text-white text-left  '
           }
         >
-          {trainer}
+          {trainer.replaceAll('-', ' ')}
         </h1>
-        <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
+        <ShareSocialMedia
+          title={dictionary['Trainers']}
+          category="Entrenadores"
+        />
       </div>
 
-      <section className=" w-full h-fit lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
-        {posts?.map((post, i) => {
-          const postCleaned = cleanDataPosts({
-            posts: new Array(post),
-            categorySlug: 'trainers',
-          })
+      {isLoading ? (
+        // Loading state
+        <div className="w-full h-64 flex items-center justify-center">
+          <div className="w-12 h-12 border-4 border-Secondary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : posts?.length > 0 ? (
+        // Posts grid
+        <>
+          <section className=" w-full h-fit lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
+            {posts?.map((post, i) => {
+              const postCleaned = cleanDataPosts({
+                posts: new Array(post),
+                categorySlug: 'trainers',
+              })
 
-          return (
-            <Link
-              key={i}
-              href={`/trainers/${trainer}/${post?.slug}`}
-              className=" w-full h-fit"
-            >
-              <div className=" w-full h-fit flex flex-col items-left justify-center gap-1">
-                <div className="relative w-full h-full aspect-[9/14] ">
-                  <Image
-                    className="w-full h-full object-cover shadow-md shadow-black/50 rounded-lg"
-                    fill
-                    src={post?.featured_image[0] || defaultImage}
-                    alt={`${post?.title?.rendered}`}
-                  />
-                  <div className=" z-10 absolute top-0 left-0 w-full h-full bg-black/30 rounded-lg"></div>
-                  <div className=" z-20 absolute top-1 right-1 w-6 h-6 pointer-events-none">
-                    <ButtonLikeFav color="#cbeb37" post={postCleaned[0]} />
+              return (
+                <Link
+                  key={i}
+                  href={`/trainers/${trainer}/${post?.slug}`}
+                  className=" w-full h-fit"
+                >
+                  <div className=" w-full h-fit flex flex-col items-left justify-center gap-1">
+                    <div className="relative w-full h-full aspect-[9/14] ">
+                      {post?.featured_image ? (
+                        <Image
+                          className="w-full h-full object-cover shadow-md shadow-black/50 rounded-lg"
+                          fill
+                          src={post.featured_image[0]}
+                          alt={`${post?.title?.rendered}`}
+                        />
+                      ) : (
+                        <ImageMissing />
+                      )}
+                      <div className=" z-10 absolute top-0 left-0 w-full h-full bg-black/30 rounded-lg"></div>
+                      <div className=" z-20 absolute top-1 right-1 w-6 h-6 pointer-events-none">
+                        <ButtonLikeFav color="#cbeb37" post={postCleaned[0]} />
+                      </div>
+                    </div>
+
+                    <p className=" pb-1 font-oswaldReg text-sm lg:text-base leading-3 line-clamp-2 text-white/80">
+                      {parse(post?.title?.rendered)}
+                    </p>
                   </div>
-                </div>
+                </Link>
+              )
+            })}
+          </section>
 
-                <p className=" pb-1 font-oswaldReg text-xs leading-3 line-clamp-2 text-White/80">
-                  {parse(post?.title?.rendered)}
-                </p>
-              </div>
-            </Link>
-          )
-        })}
-      </section>
-      <div className=" w-full flex items-center justify-around font-oswaldMed">
-        <button
-          type="button"
-          onClick={
-            page > 1 ? () => setPage(page - 1) : () => setPage(totalPages)
-          }
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <span>
-          {page} / {totalPages}
-        </span>
-        <button
-          type="button"
-          onClick={
-            page < totalPages ? () => setPage(page + 1) : () => setPage(1)
-          }
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
+          <div className=" w-full flex items-center justify-around font-oswaldMed">
+            <button
+              type="button"
+              onClick={
+                page > 1 ? () => setPage(page - 1) : () => setPage(totalPages)
+              }
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <span>
+              {page} / {totalPages}
+            </span>
+            <button
+              type="button"
+              onClick={
+                page < totalPages ? () => setPage(page + 1) : () => setPage(1)
+              }
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </>
+      ) : (
+        // Empty state
+        <div className=" w-full max-w-screen-sm h-full my-10 mx-auto px-6 py-8 flex flex-col items-center justify-center gap-3 bg-white rounded-lg">
+          <h2 className=" text-black text-center text-balance uppercase font-oswaldMed text-xl lg:text-2xl">
+            {dictionary["We're just getting warmed up!"]}
+          </h2>
+          <p className=" text-black text-center text-balance font-oswaldLight text-lg lg:text-xl">
+            {
+              dictionary[
+                'This trainer is crafting their best routines and nutrition tips just for you. All their content will be live very soon so you never miss a workout. Stay tuned!'
+              ]
+            }
+          </p>
+          <Link
+            href={'/trainers'}
+            className="mt-4 bg-Secondary py-2 px-4 text-black text-center text-balance font-oswaldLight text-lg lg:text-xl hover:scale-105 transition-all duration-200 ease-in-out rounded-lg"
+          >
+            {dictionary['Explore other trainers']}
+          </Link>
+        </div>
+      )}
 
       <SliderRecommended posts={contentRecommended} />
       <div className="w-full h-10 md:h-20"></div>
     </main>
   )
 }
+
+// 'use client'
+// import React, { useEffect, useState, useContext } from 'react'
+// import Image from 'next/image'
+// import { useParams } from 'next/navigation'
+// import parse from 'html-react-parser'
+// import ShareSocialMedia from '@/app/components/page-post/ShareSocialMedia'
+// import ButtonLikeFav from '@/app/components/ui/ButtonLikeFav'
+// import { getNewData } from '@/services/api-content'
+// import { cleanDataPosts } from '@/utils/functions'
+// import SliderRecommended from '@/app/components/page-post/SliderRecommended'
+// import { StateContext } from '@/providers/StateProvider'
+// import Link from 'next/link'
+
+// import { ChevronLeft, ChevronRight } from 'lucide-react'
+// import { CATEGORIES } from '@/lib/constants'
+
+// import dictionary from '@/dictionary/lang.json'
+
+// import defaultImage from '/public/assets/totalfitness-horizontal.webp'
+
+// export default function page() {
+//   const { trainer } = useParams()
+//   const { apiCategories } = useContext(StateContext)
+//   const [posts, setPosts] = useState([])
+//   const [page, setPage] = useState(1)
+//   const [totalPages, setTotalPages] = useState(1)
+//   const [contentRecommended, setContentRecommended] = useState([])
+
+//   useEffect(() => {
+//     if (!apiCategories) return
+//     const categoriesReq = [
+//       CATEGORIES['healthy-lifestyle'],
+//       CATEGORIES['sports'],
+//       CATEGORIES['nutrition'],
+//     ]
+//     const getData = async () => {
+//       const res = await getNewData(
+//         `/posts?per_page=20&categories=${categoriesReq}`,
+//       )
+
+//       setContentRecommended(res.data)
+//     }
+//     getData()
+//   }, [apiCategories])
+
+//   useEffect(() => {
+//     if (!apiCategories || !trainer) return
+
+//     const categoriesFiltered = apiCategories
+//       ?.filter((category) => category.slug === trainer)
+//       .map((item) => item.id)
+//     const catString = categoriesFiltered.join(',')
+
+//     const slug = `/posts?per_page=12&page=${page}&categories=${catString}`
+
+//     getNewData(slug).then((res) => {
+//       setPosts(res.data)
+//       setTotalPages(res.pages)
+//     })
+//   }, [trainer, page, apiCategories])
+
+//   return (
+//     <main
+//       className={`z-20 mt-12 mb-10 md:mt-14 md:mb-24 lg:mt-20 w-screen max-w-screen-xl h-full min-h-fit px-3 pt-0 text-White flex flex-col items-center gap-4 md:rounded-xl`}
+//     >
+//       <div className="z-50 top-0 m-0 right-0 w-full lg:max-w-5xl h-10 flex items-center justify-end gap-3">
+//         <h1
+//           className={
+//             ' w-full uppercase font-oswaldSemBold pointer-events-none cursor-default text-xl md:text-2xl lg:text-3xl text-White text-left  '
+//           }
+//         >
+//           {trainer}
+//         </h1>
+//         <ShareSocialMedia title={dictionary['Trainers']} category="trainers" />
+//       </div>
+
+//       <section className=" w-full h-fit lg:max-w-5xl grid grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7 lg:gap-6">
+//         {posts?.map((post, i) => {
+//           const postCleaned = cleanDataPosts({
+//             posts: new Array(post),
+//             categorySlug: 'trainers',
+//           })
+
+//           return (
+//             <Link
+//               key={i}
+//               href={`/trainers/${trainer}/${post?.slug}`}
+//               className=" w-full h-fit"
+//             >
+//               <div className=" w-full h-fit flex flex-col items-left justify-center gap-1">
+//                 <div className="relative w-full h-full aspect-[9/14] ">
+//                   <Image
+//                     className="w-full h-full object-cover shadow-md shadow-black/50 rounded-lg"
+//                     fill
+//                     src={post?.featured_image[0] || defaultImage}
+//                     alt={`${post?.title?.rendered}`}
+//                   />
+//                   <div className=" z-10 absolute top-0 left-0 w-full h-full bg-black/30 rounded-lg"></div>
+//                   <div className=" z-20 absolute top-1 right-1 w-6 h-6 pointer-events-none">
+//                     <ButtonLikeFav color="#cbeb37" post={postCleaned[0]} />
+//                   </div>
+//                 </div>
+
+//                 <p className=" pb-1 font-oswaldReg text-xs leading-3 line-clamp-2 text-White/80">
+//                   {parse(post?.title?.rendered)}
+//                 </p>
+//               </div>
+//             </Link>
+//           )
+//         })}
+//       </section>
+//       <div className=" w-full flex items-center justify-around font-oswaldMed">
+//         <button
+//           type="button"
+//           onClick={
+//             page > 1 ? () => setPage(page - 1) : () => setPage(totalPages)
+//           }
+//         >
+//           <ChevronLeft size={20} />
+//         </button>
+//         <span>
+//           {page} / {totalPages}
+//         </span>
+//         <button
+//           type="button"
+//           onClick={
+//             page < totalPages ? () => setPage(page + 1) : () => setPage(1)
+//           }
+//         >
+//           <ChevronRight size={20} />
+//         </button>
+//       </div>
+
+//       <SliderRecommended posts={contentRecommended} />
+//       <div className="w-full h-10 md:h-20"></div>
+//     </main>
+//   )
+// }

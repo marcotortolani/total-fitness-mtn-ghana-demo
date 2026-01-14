@@ -37,6 +37,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Versions
 
+- v1.2.6:
+
+  - Se agrega cartel "Estamos subiendo contenido" en la pagina de los trainers
+
 - v1.2.5:
   Se corrige la version de NextJS por vulnerabilidades
   Se corrigen las cards de trainers en home
